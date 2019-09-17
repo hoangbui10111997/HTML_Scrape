@@ -12,7 +12,7 @@ def make_content():
     choice4 = []
     answer = []
     choiceraw = []
-    source = urllib.request.urlopen('https://chercher.tech/aws-certification/aws-dva-c00-certified-developer-associate-practice-exam-set-1').read()
+    source = urllib.request.urlopen('https://chercher.tech/aws-certification/aws-certification-practice-question-answers').read()
     soup = bs.BeautifulSoup(source, 'lxml')
     content_raw = soup.find_all('div', class_='card mb-3')
     content = content_raw[0]
@@ -56,12 +56,12 @@ def make_content():
             choice2.append(temp[2].strip('\n(Correct)'))
             choice3.append(temp[3].strip('\n(Correct)'))
             choice4.append(temp[4].strip('\n(Correct)'))
-    filecsv = open('AWS.csv', mode='w', newline='')
+    filecsv = open(soup.title.string + '.csv', mode='w', newline='', encoding='utf-8')
     fields = ['Question', 'Choice1', 'Choice2', 'Choice3', 'Choice4', 'Choice5', 'Answer']
     writer = csv.DictWriter(filecsv, fieldnames=fields)
     writer.writeheader()
     for i in range(0, len(question)):
-        writer.writerow({'Question': question[i], 'Choice1': choice0[i], 'Choice2': choice1[i], 'Choice3': choice2[i], 'Choice4': choice3[i], 'Choice5': choice4[i], 'Answer': answer[i]})
+        writer.writerow({'Question': question[i].strip(), 'Choice1': choice0[i].strip(), 'Choice2': choice1[i].strip(), 'Choice3': choice2[i].strip(), 'Choice4': choice3[i].strip(), 'Choice5': choice4[i].strip(), 'Answer': answer[i].strip()})
 
 
 if __name__ == '__main__':
