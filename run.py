@@ -27,10 +27,11 @@ def make_content():
         choiceraw.append(raw.strip('|'))
     for i in range(0, len(question)):
         temp = choiceraw[i].split('|')
+        rawanswer = ''
         for x in temp:
             if '(Correct)' in x:
-                answer.append(x.strip('\n(Correct)'))
-                break
+                rawanswer = rawanswer + '|' + x.strip('\n(Correct)')
+        answer.append(rawanswer.strip('|'))
         condition = len(temp)
         if condition == 2:
             choice0.append(temp[0].strip('\n(Correct)'))
